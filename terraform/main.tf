@@ -30,11 +30,6 @@ locals {
   }
 }
 
-resource "azurerm_resource_group" "rg" {
-  name     = "rg-${local.gh_repo}-${local.loc_for_naming}"
-  location = var.location
-}
-
 resource "random_string" "unique" {
   length  = 8
   special = false
