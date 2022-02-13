@@ -51,3 +51,16 @@ jobs:
           keyvault: ${{ secrets.KV_NAME }}
           secrets: 'container-name, resource-group-name, storage-account-name, subscription-id'  # comma separated list of secret keys that need to be fetched from the Key Vault 
         id: kvAction
+
+      - name: do terraform
+        env:
+          TF_VAR_container_name: ${{ steps.kvAction.outputs.container-name }}
+          TF_VAR_resource_group_name: ${{ steps.kvAction.outputs.resource-group-name }}
+          TF_VAR_storage_account_name: ${{ steps.kvAction.outputs.storage-account-name }}
+          TF_VAR_subscription_id: ${{ steps.kvAction.outputs.subscription-id }}
+          TF_VAR_key: ${{ github.repository }}.tfstate
+        run: |
+            echo "starting..."
+            cd terraform
+            ./env_setup.sh
+            terraform init --backend-config=backend.tfvars
