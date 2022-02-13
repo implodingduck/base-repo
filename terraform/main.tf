@@ -50,7 +50,7 @@ data "azurerm_network_security_group" "basic" {
 }
 
 resource "azurerm_resource_group" "rg" {
-  name     = "rg-${local.gh_repo}-${random_string.unique.result}-${loc_for_naming}"
+  name     = "rg-${local.gh_repo}-${random_string.unique.result}-${local.loc_for_naming}"
   location = var.location
   tags = local.tags
 }
